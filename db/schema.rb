@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200421005716) do
+ActiveRecord::Schema.define(version: 20200421204556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,15 @@ ActiveRecord::Schema.define(version: 20200421005716) do
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "member_positions", force: :cascade do |t|
+    t.bigint "member_id"
+    t.bigint "position_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_member_positions_on_member_id"
+    t.index ["position_id"], name: "index_member_positions_on_position_id"
   end
 
   create_table "member_services", force: :cascade do |t|
@@ -106,6 +115,13 @@ ActiveRecord::Schema.define(version: 20200421005716) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["member_id"], name: "index_notes_on_member_id"
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "referral_methods", force: :cascade do |t|
@@ -170,5 +186,7 @@ ActiveRecord::Schema.define(version: 20200421005716) do
   end
 
   add_foreign_key "divisions", "seasons"
+  add_foreign_key "member_positions", "members"
+  add_foreign_key "member_positions", "positions"
   add_foreign_key "notes", "members"
 end

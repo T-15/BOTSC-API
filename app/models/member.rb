@@ -7,6 +7,8 @@ class Member < ApplicationRecord
     belongs_to :status
     has_many :team_members
     has_many :teams, through: :team_members
+    has_many :member_positions
+    has_many :positions, through: :member_positions
 
     # Validations
     validates :first_name, presence: true

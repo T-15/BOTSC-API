@@ -9,5 +9,6 @@ class MemberSerializer < ActiveModel::Serializer
 
   has_one :contact
   has_many :notes
+  has_many :positions
   
 end

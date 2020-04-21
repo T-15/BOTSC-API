@@ -5,15 +5,10 @@ class Status < ApplicationRecord
     validates :name, presence: true
 
     # Scopes
+    scope :get_applicant, -> { where(:name => 'Applicant') }
+    scope :get_registered, -> { where(:name => 'Registered') }
 
     # Uploaders
 
     # Methods
-    def get_applicant
-        return Status.find_by(name: 'Applicant')
-    end
-
-    def get_registered
-        return Status.find_by(name: 'Registered')
-    end
 end

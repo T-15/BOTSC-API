@@ -10,6 +10,8 @@ sponsors = Sponsor.create([{website_url: 'http://squirespublichouse.com/'}, {web
 
 referral_methods = ReferralMethod.create([{name: 'Website'}, {name: 'Facebook'}, {name: 'Club Member'}, {name: 'Other'}])
 
+positions = Position.create([{name: 'forward'}, {name: 'midfield'}, {name: 'defence'}, {name: 'goalkeeper'}])
+
 member_services = MemberService.create([{name: 'Genecos', contact_name: 'Patrick Malleret', website_url: 'http://genecos.com/'}])
 
 season = Season.create(year: '2020', name: '36th Season')

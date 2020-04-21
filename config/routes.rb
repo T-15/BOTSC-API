@@ -58,8 +58,15 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :positions do
+        collection do
+          get 'active'
+        end
+      end
+
       # Utiliy Routes
       get '/utility/season_menu', to: 'utility#season_menu'
+      post '/utility/application', to: 'utility#application'
       resources :team_members
       resources :referral_methods
     end
