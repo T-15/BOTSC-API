@@ -1,0 +1,22 @@
+version: '3'
+services:
+    db:
+        image: postgres:11.1
+        ports:
+            - 5432:5432
+        environment:
+            - PGDATA=/postgresql
+            - POSTGRES_PASSWORD=awesome-botsc-app
+        volumes:
+            - ./tmp/data/postgresql:/postgresql
+    web:
+        build: .
+        command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+        volumes:
+            - .:/myapp
+        ports:
+            - "3001:3000"
+        depends_on:
+            - db
+        env_file:
+            - web-variables.env
