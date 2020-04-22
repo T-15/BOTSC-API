@@ -10,55 +10,100 @@ class Api::V1::UtilityController < ApplicationController
 
     # GET /api/v1/utility/application
     def application
+        errors = []
+        data = params[:data]
         status = Status.get_applicant.first
 
-        Member.transaction do
-            @member = Member.create(
-                status: status,
-                first_name: params[:first_name],
-                last_name: params[:last_name],
-                phone: params[:phone],
-                email: params[:email],
-                birthday: params[:birthday],
-                postal_code: params[:postal_code],
-                member_since: 0,
-                referral_method: ReferralMethod.find(params[:referral_method])
-            )
-
-            desired_division = Division.find(params[:division])
-
-            Note.create(member: @member, content: "Application - Self Grade: " + params[:grade])
-            Note.create(member: @member, content: "Application - Desired Division: " + desired_division.name)
-
-            if params.has_key?(:referrer)
-                Note.create(member: @member, content: "Application - Referrer: " + params[:referrer])
-            end
-
-            if params.has_key?(:additional_info)
-                Note.create(member: @member, content: "Application - Additional Information: " + params[:additional_info])
-            end
-
-            if params[:forward] == true
-                MemberPosition.create(member: @member, position: Position.find_by(name: "forward"))
-            end
-
-            if params[:midfield] == true
-                MemberPosition.create(member: @member, position: Position.find_by(name: "midfield"))
-            end
-
-            if params[:defence] == true
-                MemberPosition.create(member: @member, position: Position.find_by(name: "defence"))
-            end
-
-            if params[:goalkeeper] == true
-                MemberPosition.create(member: @member, position: Position.find_by(name: "goalkeeper"))
-            end
+        begin
+            referralMethod = ReferralMethod.find(data[:referralMethod])
+        rescue ActiveRecord::RecordNotFound => exception
+            render json: {status: "error", code: 404, message: "Please let us know how you heard about us"}, status: :unprocessable_entity
+            return
         end
 
-        if @member.save
+        begin
+            desired_division = Division.find(data[:division])
+        rescue ActiveRecord::RecordNotFound => exception
+            render json: {status: "error", code: 404, message: "Please choose a division you wish to play in"}, status: :unprocessable_entity
+            return
+        end
+
+        if !data.key?(:firstName) || data[:firstName].empty?
+            errors.push({missing_param: "First Name"})
+        end
+
+        if !data.key?(:lastName) || data[:lastName].empty?
+            errors.push({missing_param: "Last Name"})
+        end
+
+        if !data.key?(:email) || data[:email].empty?
+            errors.push({missing_param: "Email"})
+        end
+
+        if !data.key?(:postalCode) || data[:postalCode].empty?
+            errors.push({missing_param: "Postal Code"})
+        end
+
+        if !data.key?(:phone) || data[:phone].empty?
+            errors.push({missing_param: "Phone"})
+        end
+
+        if !data.key?(:birthday) || data[:birthday].empty?
+            errors.push({missing_param: "Birthday"})
+        end
+
+        if !data.key?(:grade) || data[:grade].empty?
+            errors.push({missing_param: "Skill Level"})
+        end
+
+        if !data.key?(:division) || data[:division].empty?
+            errors.push({missing_param: "Division"})
+        end
+
+        if !data.key?(:referralMethod) || data[:referralMethod].empty?
+            errors.push({missing_param: "Referral Method"})
+        end
+
+        if errors.any?
+            render json: errors.to_json, status: :unprocessable_entity
+            return
+        end
+
+        begin
+            ActiveRecord::Base.transaction do
+                @member = Member.create(
+                    status: status,
+                    first_name: data[:firstName],
+                    last_name: data[:lastName],
+                    phone: data[:phone],
+                    email: data[:email],
+                    birthday: data[:birthday],
+                    postal_code: data[:postalCode],
+                    member_since: 0,
+                    referral_method: referralMethod
+                )
+
+                Note.create(member: @member, content: "Application - Self Grade: " + data[:grade])
+                Note.create(member: @member, content: "Application - Desired Division: " + desired_division.name)
+
+                if data.key?(:referrer)
+                    Note.create(member: @member, content: "Application - Referrer: " + data[:referrer])
+                end
+
+                if data.key?(:additional_info)
+                    Note.create(member: @member, content: "Application - Additional Information: " + data[:additionalInfo])
+                end
+
+                data[:positions].each do |v|
+                    MemberPosition.create(member: @member, position_id: v)
+                end
+            end
+        rescue ActiveRecord::RecordInvalid => exception
+            render json: exception.message.to_json, status: :unprocessable_entity
+        rescue ActiveRecord::RecordNotFound => exception
+            render json: exception.message.to_json, status: :unprocessable_entity
+        else
             render json: "Success".to_json, status: :created
-          else
-            render json: @member.errors, status: :unprocessable_entity
-          end
+        end
     end
 end
