@@ -84,7 +84,10 @@ class Api::V1::UtilityController < ApplicationController
                 )
 
                 Note.create(member: @member, content: "Application - Self Grade: " + data[:grade])
-                Note.create(member: @member, content: "Application - Desired Division: " + desired_division.name)
+
+                waiting_list = WaitingList.find_by(division: desired_division)
+
+                WaitingListMember.create(member: @member, waiting_list: waiting_list)
 
                 if data.key?(:referrer)
                     Note.create(member: @member, content: "Application - Referrer: " + data[:referrer])

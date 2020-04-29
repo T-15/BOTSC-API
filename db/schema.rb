@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200421204556) do
+ActiveRecord::Schema.define(version: 20200428195739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,8 +185,28 @@ ActiveRecord::Schema.define(version: 20200421204556) do
     t.index ["sponsor_id"], name: "index_teams_on_sponsor_id"
   end
 
+  create_table "waiting_list_members", force: :cascade do |t|
+    t.bigint "waiting_list_id"
+    t.bigint "member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_waiting_list_members_on_member_id"
+    t.index ["waiting_list_id"], name: "index_waiting_list_members_on_waiting_list_id"
+  end
+
+  create_table "waiting_lists", force: :cascade do |t|
+    t.string "name"
+    t.bigint "division_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["division_id"], name: "index_waiting_lists_on_division_id"
+  end
+
   add_foreign_key "divisions", "seasons"
   add_foreign_key "member_positions", "members"
   add_foreign_key "member_positions", "positions"
   add_foreign_key "notes", "members"
+  add_foreign_key "waiting_list_members", "members"
+  add_foreign_key "waiting_list_members", "waiting_lists"
+  add_foreign_key "waiting_lists", "divisions"
 end

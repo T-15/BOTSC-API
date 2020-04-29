@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       resources :divisions do
         collection do
           get 'active'
+          post 'create_with_waiting_list'
         end
 
         member do
@@ -69,6 +70,7 @@ Rails.application.routes.draw do
       post '/utility/application', to: 'utility#application'
       resources :team_members
       resources :referral_methods
+      resources :waiting_lists
     end
   end
 end

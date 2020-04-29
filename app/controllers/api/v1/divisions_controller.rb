@@ -35,7 +35,21 @@ class Api::V1::DivisionsController < ApplicationController
     @division = Division.new(division_params)
 
     if @division.save
-      render json: @division, status: :created, location: @division, include: ['division']
+      render json: @division, status: :created, location: api_v1_division_path(@division), include: ['division']
+    else
+      render json: @division.errors, status: :unprocessable_entity
+    end
+  end
+
+  # POST api/v1/divisions/create_with_wait_list
+  def create_with_waiting_list
+    Division.transaction do
+      @division = Division.new(division_params)
+      wait_list = WaitingList.create(name: @division.name + " Waiting List", division: @division)
+    end
+
+    if @division.save
+      render json: @division, status: :created, location: api_v1_division_path(@division), include: ['division', 'waiting_list']
     else
       render json: @division.errors, status: :unprocessable_entity
     end
