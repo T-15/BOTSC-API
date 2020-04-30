@@ -4,7 +4,6 @@ rvm:
 env:
   global:
   - "RAILS_ENV=test"
-  - CODECOV_TOKEN=3e539f67-5995-4780-9683-95eb4eec4eeb
 before_script:
   - psql --version
   - RAILS_ENV=test rake db:create db:migrate
