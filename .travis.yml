@@ -6,7 +6,7 @@ env:
   - "RAILS_ENV=test"
 before_script:
   - psql -c 'CREATE DATABASE botsc-api_test;' -U postgres
-  - RAILS_ENV=test rake db:migrate
+  - RAILS_ENV=test rails db:migrate
 script: bundle exec rake spec
 services:
   - postgresql
