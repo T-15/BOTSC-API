@@ -1,25 +1,25 @@
 ---
 engines:
     brakeman:
-    enabled: true
+        enabled: true
     bundler-audit:
-    enabled: true
+        enabled: true
     duplication:
-    enabled: true
+        enabled: true
     config:
         languages:
         - ruby
     exclude_paths:
         - spec/
     fixme:
-    enabled: true
+        enabled: true
     rubocop:
-    enabled: true
+        enabled: true
     checks:
         Rubocop/Style/FrozenStringLiteralComment:
-        enabled: false
+            enabled: false
     reek:
-    enabled: true
+        enabled: true
 ratings:
     paths:
     - Gemfile.lock
