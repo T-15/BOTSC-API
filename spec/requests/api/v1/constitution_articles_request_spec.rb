@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
     # initialize test data 
     let!(:constitution_articles) { create_list(:constitution_article, 10) }
-    let(:constitution_article) { constitution_article.first }
+    let(:constitution_article_id) { constitution_article.first.id }
 
     # Test suite for GET /constitution_articles
     describe 'GET /constitution_articles' do
@@ -23,12 +23,12 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
 
     # Test suite for GET /constitution_articles/:id
     describe 'GET /constitution_articles/:id' do
-        before { get "/constitution_articles/#{constitution_article.id}", params: {} }
+        before { get "/constitution_articles/#{constitution_article_id}", params: {} }
 
         context 'when the record exists' do
             it 'returns the constitution_article' do
                 expect(json).not_to be_empty
-                expect(json['id']).to eq(constitution_article.id)
+                expect(json['id']).to eq(constitution_article_id)
             end
 
             it 'returns status code 200' do
@@ -37,7 +37,7 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
         end
 
         context 'when the record does not exist' do
-            let(:constitution_article.id) { 100 }
+            let(:constitution_article_id) { 100 }
 
             it 'returns status code 404' do
                 expect(response).to have_http_status(404)
@@ -88,7 +88,7 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
         let(:valid_attributes) { { title: 'New constitution_articles' }.to_json }
 
         context 'when the record exists' do
-            before { put "/constitution_articles/#{constitution_article.id}", params: valid_attributes }
+            before { put "/constitution_articles/#{constitution_article_id}", params: valid_attributes }
 
             it 'updates the record' do
                 expect(response.body).to be_empty
@@ -102,7 +102,7 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
 
     # Test suite for DELETE /constitution_articles/:id
     describe 'DELETE /constitution_articles/:id' do
-        before { delete "/constitution_articles/#{constitution_article.id}", params: {} }
+        before { delete "/constitution_articles/#{constitution_article_id}", params: {} }
 
         it 'returns status code 204' do
         expect(response).to have_http_status(204)
