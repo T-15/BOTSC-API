@@ -1,11 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Contact, type: :model do
+RSpec.describe Position, type: :model do
   # Association test
-  it { should belong_to(:member)}
+  it { should have_many(:member_positions) }
+  it { should have_many(:members)}
   # Validation tests
   # ensure columns are present before saving
   it { should validate_presence_of(:name) }
-
-  it { should validate_presence_of(:phone) }
 end
