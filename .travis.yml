@@ -10,6 +10,8 @@ apt:
   - postgresql-11
   - postgresql-client-11
 env:
+  global:
+    - PGPORT=5433
   - "RAILS_ENV=test"
 before_script:
   - psql -c 'create database botsc-api_test;' -U postgres
