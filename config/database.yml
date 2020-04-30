@@ -29,6 +29,7 @@ development: &development
 test:
   <<: *development
   database: botsc-api_test
+  host: localhost
 
 production:
   url: <%= ENV['DATABASE_URL'] %>
