@@ -27,8 +27,9 @@ development: &development
   host: db
 
 test:
-  <<: *development
+  <<: *default
   database: botsc-api_test
+  username: postgres
   host: localhost
 
 production:
