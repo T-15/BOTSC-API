@@ -35,6 +35,9 @@ gem 'remotipart', '~> 1.2'
 # List Sorting
 gem 'acts_as_list'
 
+# Travis ci - https://travis-ci.com/
+gem 'travis'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

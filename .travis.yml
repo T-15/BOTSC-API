@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+    — 2.7
+services:
+  - postgresql
+env:
+  - "RAILS_ENV=test"
+before_script:
+  - RAILS_ENV=test rake db:create db:migrate
+addons:
+  postgresql: "11.1"
