@@ -7,7 +7,6 @@ env:
 before_script:
   - psql --version
   - RAILS_ENV=test rake db:create db:migrate
-script: bundle exec rake spec
 services:
   - postgresql
 addons:
