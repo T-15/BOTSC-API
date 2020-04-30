@@ -4,6 +4,7 @@ rvm:
 env:
   global:
   - "RAILS_ENV=test"
+  - CC_TEST_REPORTER_ID=8c34dcfb24b8bb55f5e57d248685af96c0420ce943705e12fdf68dda544ee05b
 before_script:
   - psql --version
   - RAILS_ENV=test rake db:create db:migrate
@@ -12,9 +13,6 @@ before_script:
   - ./cc-test-reporter before-build
 services:
   - postgresql
-addons:
-  global:
-    - CC_TEST_REPORTER_ID=8c34dcfb24b8bb55f5e57d248685af96c0420ce943705e12fdf68dda544ee05b
 script:
   - bundle exec rspec
 after_script:
