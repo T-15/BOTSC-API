@@ -12,5 +12,3 @@ services:
   - postgresql
 script:
   - bundle exec rspec
-after_script:
-  - bash <(curl -s https://codecov.io/bash)
