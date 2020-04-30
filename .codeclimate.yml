@@ -8,9 +8,9 @@ plugins:
         enabled: true
     config:
         languages:
-        - ruby
-    exclude_paths:
-        - spec/
+        - "ruby"
+        exclude_paths:
+        - "spec/"
     fixme:
         enabled: true
     rubocop:
