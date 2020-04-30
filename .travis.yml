@@ -3,9 +3,14 @@ rvm:
     — 2.7
 services:
   - postgresql
+addons:
+  postgresql: "11.1"
+apt:
+  packages:
+  - postgresql-11
+  - postgresql-client-11
 env:
   - "RAILS_ENV=test"
 before_script:
-  - RAILS_ENV=test rake db:create db:migrate
-addons:
-  postgresql: "11.1"
+  - psql -c 'create database botsc-api_test;' -U postgres
+  - RAILS_ENV=test rake db:migrate
