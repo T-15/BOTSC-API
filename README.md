@@ -1,3 +1,7 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/220fc319466b738061dd/maintainability)](https://codeclimate.com/github/T-15/BOTSC-APImaintainability)
+
+[![Test Coverage](https://api.codeclimate.com/v1/badges/220fc319466b738061dd/test_coverage)](https://codeclimate.com/github/T-15/BOTSC-API/test_coverage)
+
 # Docker
 
 Make sure you have docker installed, then build the app:

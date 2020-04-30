@@ -10,3 +10,8 @@ before_script:
 script: bundle exec rake spec
 services:
   - postgresql
+addons:
+  code_climate:
+    repo_token: 8c34dcfb24b8bb55f5e57d248685af96c0420ce943705e12fdf68dda544ee05b
+after_success:
+  - bundle exec codeclimate-test-reporter
