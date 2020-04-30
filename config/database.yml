@@ -30,7 +30,7 @@ test:
   <<: *default
   database: botsc-api_test
   username: postgres
-  host: localhost
+  host: 127.0.0.1
   port: 5433
 
 production:
