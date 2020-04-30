@@ -18,3 +18,4 @@
 
 web-variables.env
 .DS_Store
+coverage
