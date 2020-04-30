@@ -4,16 +4,11 @@ rvm:
 env:
   global:
   - "RAILS_ENV=test"
-  - CC_TEST_REPORTER_ID=8c34dcfb24b8bb55f5e57d248685af96c0420ce943705e12fdf68dda544ee05b
+  - CODECOV_TOKEN=3e539f67-5995-4780-9683-95eb4eec4eeb
 before_script:
   - psql --version
   - RAILS_ENV=test rake db:create db:migrate
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
 services:
   - postgresql
 script:
   - bundle exec rspec
-after_script:
-  - ./cc-test-reporter after-build -t simplecov --exit-code $TRAVIS_TEST_RESULT
