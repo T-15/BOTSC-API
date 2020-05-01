@@ -52,10 +52,18 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
     # Test suite for POST /api/v1/constitution_articles
     describe 'POST /api/v1/constitution_articles' do
         # valid payload
-        let(:valid_attributes) {
+        let(:valid_attributes) do
             title: 'Test',
             content: 'This is a paragraph'
-        }.to_json
+        end
+
+        let (:contract_params) do
+            {
+              vendor: "Lebara",
+              starts_on: "2018-12-12",
+              ends_on: "2018-12-16",
+              price: "15",
+            }
 
         context 'when the request is valid' do
             before { post '/api/v1/constitution_articles', params: valid_attributes }
