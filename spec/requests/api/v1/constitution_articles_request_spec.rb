@@ -30,7 +30,7 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
             # Note `json` is a custom helper to parse JSON responses
             expect(json).not_to be_empty
             json.each do |item|
-                expect(item[:active]).to match(true)
+                expect(item["active"]).to match(true)
             end
         end
 
