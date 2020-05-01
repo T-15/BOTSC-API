@@ -21,6 +21,24 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
         end
     end
 
+    # Test suite for GET /api/v1/constitution_articles/active
+    describe 'GET /api/v1/constitution_articles/active' do
+        # make HTTP get request before each example
+        before { get '/api/v1/constitution_articles/active', params: {} }
+
+        it 'returns active constitution_articles' do
+            # Note `json` is a custom helper to parse JSON responses
+            expect(json).not_to be_empty
+            json.each do |item|
+                expect(item[:active]).to contain(true)
+            end
+        end
+
+        it 'returns status code 200' do
+            expect(response).to have_http_status(200)
+        end
+    end
+
     # Test suite for GET /api/v1/constitution_articles/:id
     describe 'GET /api/v1/constitution_articles/:id' do
         before { get "/api/v1/constitution_articles/#{constitution_article_id}", params: {} }
