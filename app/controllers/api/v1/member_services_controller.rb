@@ -54,6 +54,6 @@ class Api::V1::MemberServicesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def member_service_params
-      params.require(:member_service).permit(:name, :contact_name, :description, :image, :website_url, :facebook_url, :twitter_url, :instagram_url, :email, :phone, :active)
+      params.permit(:name, :contact_name, :description, :image, :website_url, :facebook_url, :twitter_url, :instagram_url, :email, :phone, :active)
     end
 end
