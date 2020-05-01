@@ -5,10 +5,10 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
     let!(:constitution_articles) { create_list(:constitution_article, 10) }
     let(:constitution_article_id) { constitution_articles.first.id }
 
-    # Test suite for GET api/v1/constitution_articles
-    describe 'GET api/v1/constitution_articles' do
+    # Test suite for GET /api/v1/constitution_articles
+    describe 'GET /api/v1/constitution_articles' do
         # make HTTP get request before each example
-        before { get 'api/v1/constitution_articles', params: {} }
+        before { get '/api/v1/constitution_articles', params: {} }
 
         it 'returns constitution_articles' do
             # Note `json` is a custom helper to parse JSON responses
@@ -21,9 +21,9 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
         end
     end
 
-    # Test suite for GET api/v1/constitution_articles/:id
-    describe 'GET api/v1/constitution_articles/:id' do
-        before { get "api/v1/constitution_articles/#{constitution_article_id}", params: {} }
+    # Test suite for GET /api/v1/constitution_articles/:id
+    describe 'GET /api/v1/constitution_articles/:id' do
+        before { get "/api/v1/constitution_articles/#{constitution_article_id}", params: {} }
 
         context 'when the record exists' do
             it 'returns the constitution_article' do
@@ -49,8 +49,8 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
         end
     end
 
-    # Test suite for POST api/v1/constitution_articles
-    describe 'POST api/v1/constitution_articles' do
+    # Test suite for POST /api/v1/constitution_articles
+    describe 'POST /api/v1/constitution_articles' do
         # valid payload
         let(:valid_attributes) { {
             title: 'Test',
@@ -58,7 +58,7 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
             }.to_json }
 
         context 'when the request is valid' do
-            before { post 'api/v1/constitution_articles', params: valid_attributes }
+            before { post '/api/v1/constitution_articles', params: valid_attributes }
 
             it 'creates a constitution_articles' do
                 expect(json['title']).to eq('Test')
@@ -70,7 +70,7 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
         end
 
         context 'when the request is invalid' do
-            before { post 'api/v1/constitution_articles', params: { name: 'Foobar' }.to_json }
+            before { post '/api/v1/constitution_articles', params: { name: 'Foobar' }.to_json }
 
             it 'returns status code 422' do
                 expect(response).to have_http_status(422)
@@ -83,12 +83,12 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
         end
     end
 
-    # Test suite for PUT api/v1/constitution_articles/:id
-    describe 'PUT api/v1/constitution_articles/:id' do
+    # Test suite for PUT /api/v1/constitution_articles/:id
+    describe 'PUT /api/v1/constitution_articles/:id' do
         let(:valid_attributes) { { title: 'New constitution_articles' }.to_json }
 
         context 'when the record exists' do
-            before { put "api/v1/constitution_articles/#{constitution_article_id}", params: valid_attributes }
+            before { put "/api/v1/constitution_articles/#{constitution_article_id}", params: valid_attributes }
 
             it 'updates the record' do
                 expect(response.body).to be_empty
@@ -100,9 +100,9 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
         end
     end
 
-    # Test suite for DELETE api/v1/constitution_articles/:id
-    describe 'DELETE api/v1/constitution_articles/:id' do
-        before { delete "api/v1/constitution_articles/#{constitution_article_id}", params: {} }
+    # Test suite for DELETE /api/v1/constitution_articles/:id
+    describe 'DELETE /api/v1/constitution_articles/:id' do
+        before { delete "/api/v1/constitution_articles/#{constitution_article_id}", params: {} }
 
         it 'returns status code 204' do
         expect(response).to have_http_status(204)
