@@ -53,6 +53,6 @@ class Api::V1::ConstitutionByLawsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def constitution_by_law_params
-      params.require(:constitution_by_law).permit(:position, :title, :content, :active)
+      params.permit(:position, :title, :content, :active)
     end
 end
