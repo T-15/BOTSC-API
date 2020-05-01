@@ -12,26 +12,26 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/api/v1/member_services", type: :request do
+RSpec.describe "/api/v1/constitution_articles", type: :request do
   # This should return the minimal set of attributes required to create a valid
-  # MemberService. As you add validations to MemberService, be sure to
+  # ConstitutionArticle. As you add validations to ConstitutionArticle, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     {
-        name: Faker::Name.name,
-        contact_name: Faker::Name.name
+      title: Faker::Lorem.word,
+      content: Faker::Lorem.paragraph
     }
   }
 
   let(:invalid_attributes) {
     {
-        fail: Faker::Name.name
+      fail: Faker::Lorem.word
     }
   }
 
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
-  # MemberServicesController, or in your router and rack
+  # ConstitutionArticlesController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
     {}
@@ -39,56 +39,56 @@ RSpec.describe "/api/v1/member_services", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      MemberService.create! valid_attributes
-      get api_v1_member_services_url, headers: valid_headers, as: :json
+      ConstitutionArticle.create! valid_attributes
+      get api_v1_constitution_articles_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
-  describe "GET /active" do
+  describe "GET /index" do
     it "renders a successful response" do
-      MemberService.create! valid_attributes
-      get active_api_v1_member_services_url, headers: valid_headers, as: :json
+      ConstitutionArticle.create! valid_attributes
+      get active_api_v1_constitution_articles_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      member_service = MemberService.create! valid_attributes
-      get api_v1_member_service_url(member_service), as: :json
+      constitution_article = ConstitutionArticle.create! valid_attributes
+      get api_v1_constitution_article_url(constitution_article), as: :json
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new MemberService" do
+      it "creates a new ConstitutionArticle" do
         expect {
-          post api_v1_member_services_url,
-               params: { member_service: valid_attributes }, headers: valid_headers, as: :json
-        }.to change(MemberService, :count).by(1)
+          post api_v1_constitution_articles_url,
+               params: { constitution_article: valid_attributes }, headers: valid_headers, as: :json
+        }.to change(ConstitutionArticle, :count).by(1)
       end
 
-      it "renders a JSON response with the new api/v1_member_service" do
-        post api_v1_member_services_url,
-             params: { member_service: valid_attributes }, headers: valid_headers, as: :json
+      it "renders a JSON response with the new constitution_article" do
+        post api_v1_constitution_articles_url,
+             params: { constitution_article: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new MemberService" do
+      it "does not create a new ConstitutionArticle" do
         expect {
-          post api_v1_member_services_url,
-               params: { member_service: invalid_attributes }, as: :json
-        }.to change(MemberService, :count).by(0)
+          post api_v1_constitution_articles_url,
+               params: { constitution_article: invalid_attributes }, as: :json
+        }.to change(ConstitutionArticle, :count).by(0)
       end
 
-      it "renders a JSON response with errors for the new api/v1_member_service" do
-        post api_v1_member_services_url,
-             params: { member_service: invalid_attributes }, headers: valid_headers, as: :json
+      it "renders a JSON response with errors for the new constitution_article" do
+        post api_v1_constitution_articles_url,
+             params: { constitution_article: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq("application/json")
       end
@@ -96,11 +96,11 @@ RSpec.describe "/api/v1/member_services", type: :request do
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested api/v1_member_service" do
-      member_service = MemberService.create! valid_attributes
+    it "destroys the requested constitution_article" do
+      constitution_article = ConstitutionArticle.create! valid_attributes
       expect {
-        delete api_v1_member_service_url(member_service), headers: valid_headers, as: :json
-      }.to change(MemberService, :count).by(-1)
+        delete api_v1_constitution_article_url(constitution_article), headers: valid_headers, as: :json
+      }.to change(ConstitutionArticle, :count).by(-1)
     end
   end
 end
