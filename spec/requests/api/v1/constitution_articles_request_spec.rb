@@ -57,6 +57,10 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
             content: 'This is a paragraph'
         } }.to_json
 
+        let(:invalid_attributes) { {
+            title: 'Test'
+        } }.to_json
+
         context 'when the request is valid' do
             before { post '/api/v1/constitution_articles', params: valid_attributes }
 
@@ -70,7 +74,7 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
         end
 
         context 'when the request is invalid' do
-            before { post '/api/v1/constitution_articles', params: { { title: 'Foobar' } }.to_json }
+            before { post '/api/v1/constitution_articles', params: invalid_attributes }
 
             it 'returns status code 422' do
                 expect(response).to have_http_status(422)
