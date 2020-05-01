@@ -53,10 +53,8 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
     describe 'POST /api/v1/constitution_articles' do
         # valid payload
         let(:valid_attributes) {
-            constitution_article: {
-                title: 'Test',
-                content: 'This is a paragraph'
-                }
+            title: 'Test',
+            content: 'This is a paragraph'
         }.to_json
 
         context 'when the request is valid' do
