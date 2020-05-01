@@ -70,7 +70,7 @@ RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
         end
 
         context 'when the request is invalid' do
-            before { post '/api/v1/constitution_articles', params: { { title: 'Foobar'  }.to_json }
+            before { post '/api/v1/constitution_articles', params: { { title: 'Foobar'  } }.to_json }
 
             it 'returns status code 422' do
                 expect(response).to have_http_status(422)
