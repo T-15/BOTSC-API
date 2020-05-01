@@ -39,7 +39,6 @@ gem 'acts_as_list'
 gem 'travis'
 
 # Testing
-gem 'factory_bot'
 gem 'faker'
 
 group :development, :test do
@@ -61,6 +60,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner-active_record'
   gem 'timecop'
+  gem 'factory_bot_rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

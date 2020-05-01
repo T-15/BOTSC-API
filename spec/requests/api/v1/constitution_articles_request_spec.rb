@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Api::V1::ConstitutionArticles", type: :request do
     # initialize test data 
     let!(:constitution_articles) { create_list(:constitution_article, 10) }
-    let(:constitution_article_id) { constitution_article.first.id }
+    let(:constitution_article_id) { constitution_articles.first.id }
 
     # Test suite for GET /constitution_articles
     describe 'GET /constitution_articles' do
