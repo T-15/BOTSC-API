@@ -13,8 +13,11 @@ class Member < ApplicationRecord
     # Validations
     validates :first_name, presence: true
     validates :last_name, presence: true
+    validates :phone, presence: true
+    validates :email, presence: true
     validates :birthday, presence: true
     validates :postal_code, presence: true
+    validates :member_since, presence: true
 
     # Scopes
 

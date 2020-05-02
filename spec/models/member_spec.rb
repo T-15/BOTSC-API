@@ -14,6 +14,9 @@ RSpec.describe Member, type: :model do
   # ensure columns are present before saving
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
+  it { should validate_presence_of(:phone) }
+  it { should validate_presence_of(:email) }
   it { should validate_presence_of(:birthday) }
   it { should validate_presence_of(:postal_code) }
+  it { should validate_presence_of(:member_since) }
 end

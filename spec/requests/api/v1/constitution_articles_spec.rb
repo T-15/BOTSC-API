@@ -45,7 +45,7 @@ RSpec.describe "/api/v1/constitution_articles", type: :request do
     end
   end
 
-  describe "GET /index" do
+  describe "GET /active" do
     it "renders a successful response" do
       ConstitutionArticle.create! valid_attributes
       get active_api_v1_constitution_articles_url, headers: valid_headers, as: :json
