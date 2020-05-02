@@ -16,7 +16,4 @@ class Team < ApplicationRecord
     mount_uploader :team_image, TeamImageUploader
 
     # Methods
-    def matches
-        Match.where("home_team_id = ? OR away_team_id = ?", self.id, self.id).order("number ASC")
-    end
 end

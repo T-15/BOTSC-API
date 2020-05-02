@@ -8,6 +8,14 @@ class Api::V1::MatchesController < ApplicationController
     render json: @matches, include: ['matches']
   end
 
+  # GET api/v1/matches/for_team
+  def for_team
+    team_id = params[:team_id]
+    @matches = Match.for_team(team_id)
+
+    render json: @matches, include: ['home_team', 'away_team', 'field', 'status']
+  end
+
   # GET api/v1/matches/1
   def show
     render json: @match, include: ['match']

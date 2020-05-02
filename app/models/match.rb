@@ -9,6 +9,7 @@ class Match < ApplicationRecord
   validates :number, presence: true
 
   # Scopes
+  scope :for_team, ->(team_id) { where("home_team_id = ? OR away_team_id = ?", team_id, team_id) }
 
   # Uploaders
 
