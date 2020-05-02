@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200428195739) do
+ActiveRecord::Schema.define(version: 20200502201938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,25 @@ ActiveRecord::Schema.define(version: 20200428195739) do
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.bigint "home_team_id"
+    t.bigint "away_team_id"
+    t.bigint "field_id"
+    t.bigint "status_id"
+    t.integer "number", default: 0, null: false
+    t.date "date"
+    t.time "time"
+    t.integer "home_score"
+    t.integer "away_score"
+    t.string "additional_information"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["away_team_id"], name: "index_matches_on_away_team_id"
+    t.index ["field_id"], name: "index_matches_on_field_id"
+    t.index ["home_team_id"], name: "index_matches_on_home_team_id"
+    t.index ["status_id"], name: "index_matches_on_status_id"
   end
 
   create_table "member_positions", force: :cascade do |t|
@@ -203,6 +222,8 @@ ActiveRecord::Schema.define(version: 20200428195739) do
   end
 
   add_foreign_key "divisions", "seasons"
+  add_foreign_key "matches", "fields"
+  add_foreign_key "matches", "statuses"
   add_foreign_key "member_positions", "members"
   add_foreign_key "member_positions", "positions"
   add_foreign_key "notes", "members"
