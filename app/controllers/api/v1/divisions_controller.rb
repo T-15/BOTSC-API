@@ -41,7 +41,7 @@ class Api::V1::DivisionsController < ApplicationController
     end
   end
 
-  # POST api/v1/divisions/create_with_wait_list
+  # POST api/v1/divisions/create_with_waiting_list
   def create_with_waiting_list
     Division.transaction do
       @division = Division.new(division_params)
