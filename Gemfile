@@ -38,6 +38,9 @@ gem 'acts_as_list'
 # Travis ci - https://travis-ci.com/
 gem 'travis'
 
+# Testing
+gem 'faker'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -54,6 +57,10 @@ end
 group :test do
   gem 'simplecov', require: false
   gem 'codecov', require: false
+  gem 'shoulda-matchers'
+  gem 'database_cleaner-active_record'
+  gem 'timecop'
+  gem 'factory_bot_rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
