@@ -67,6 +67,6 @@ class Api::V1::SeasonsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def season_params
-      params.require(:season).permit(:year, :name, :active)
+      params.require(:season).permit(:year, :name, schedule_generated, :active)
     end
 end

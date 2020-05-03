@@ -10,7 +10,8 @@
 require 'database_cleaner'
 DatabaseCleaner.clean_with(:truncation)
 
-sponsors = Sponsor.create([{website_url: 'http://squirespublichouse.com/'}, {website_url: 'http://blackbull.ca/'}])
+sponsor_img = File.new("test/fixtures/sponsor.png")
+sponsors = Sponsor.create([{image: sponsor_img, website_url: 'http://squirespublichouse.com/'}, {image: sponsor_img, website_url: 'http://blackbull.ca/'}])
 
 referral_methods = ReferralMethod.create([{name: 'Website'}, {name: 'Facebook'}, {name: 'Club Member'}, {name: 'Other'}])
 
@@ -24,7 +25,7 @@ divisions = Division.create([{name: 'Over 45', season_id: season.id}, {name: 'Ov
 
 sizes = Size.create([{name: 'Large'}, {name: 'Medium'}, {name: 'Small'}])
 
-statuses = Status.create([{name: 'Registered'}, {name: 'Applicant'}])
+statuses = Status.create([{name: 'Registered'}, {name: 'Applicant'}, {name: 'Un-Played'}])
 
 members = Member.create([
     {
@@ -54,42 +55,20 @@ members = Member.create([
 ])
 
 teams = Team.create([
-    {
-        convenor_id: members.first.id,
-        division_id: divisions.first.id,
-        sponsor_id: sponsors.first.id,
-        name: 'Black Bull Imperials'
-    },
-    {
-        convenor_id: members.first.id,
-        division_id: divisions.first.id,
-        sponsor_id: sponsors.first.id,
-        name: 'Squires Rams'
-    },
-    {
-        convenor_id: members.first.id,
-        division_id: divisions.first.id,
-        sponsor_id: sponsors.first.id,
-        name: 'Piper Arms Gunners'
-    },
-    {
-        convenor_id: members.first.id,
-        division_id: divisions.first.id,
-        sponsor_id: sponsors.first.id,
-        name: 'Aches N Pains True Blues'
-    },
-    {
-        convenor_id: members.first.id,
-        division_id: divisions.first.id,
-        sponsor_id: sponsors.first.id,
-        name: 'Air Solutions'
-    },
-    {
-        convenor_id: members.first.id,
-        division_id: divisions.first.id,
-        sponsor_id: sponsors.first.id,
-        name: 'Black Bull Rangers'
-    }
+    {convenor_id: members.first.id, division_id: divisions.first.id, sponsor_id: sponsors.first.id, name: 'Black Bull Imperials'},
+    {convenor_id: members.first.id, division_id: divisions.first.id, sponsor_id: sponsors.first.id, name: 'Squires Rams'},
+    {convenor_id: members.first.id, division_id: divisions.first.id, sponsor_id: sponsors.first.id, name: 'Piper Arms Gunners'},
+    {convenor_id: members.first.id, division_id: divisions.first.id, sponsor_id: sponsors.first.id, name: 'Aches N Pains True Blues'},
+    {convenor_id: members.first.id, division_id: divisions.first.id, sponsor_id: sponsors.first.id, name: 'Air Solutions'},
+    {convenor_id: members.first.id, division_id: divisions.first.id, sponsor_id: sponsors.first.id, name: 'Black Bull Rangers'},
+    {convenor_id: members.first.id, division_id: divisions.last.id, sponsor_id: sponsors.first.id, name: 'Cancro Machining'},
+    {convenor_id: members.first.id, division_id: divisions.last.id, sponsor_id: sponsors.first.id, name: 'Squires Knights'},
+    {convenor_id: members.first.id, division_id: divisions.last.id, sponsor_id: sponsors.first.id, name: 'Piper Arms Kopites'},
+    {convenor_id: members.first.id, division_id: divisions.last.id, sponsor_id: sponsors.first.id, name: 'Wentworth Arenas'},
+    {convenor_id: members.first.id, division_id: divisions.last.id, sponsor_id: sponsors.first.id, name: 'Roseland Barber Wizards'},
+    {convenor_id: members.first.id, division_id: divisions.last.id, sponsor_id: sponsors.first.id, name: 'Orthogait Celtic'},
+    {convenor_id: members.first.id, division_id: divisions.last.id, sponsor_id: sponsors.first.id, name: 'Bay City Rebels'},
+    {convenor_id: members.first.id, division_id: divisions.last.id, sponsor_id: sponsors.first.id, name: 'Orange Crush'}
 ])
 
 team_members = TeamMember.create([{team_id: teams.first.id, member_id: members.first.id}, {team_id: teams.first.id, member_id: members.last.id}])
