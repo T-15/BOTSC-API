@@ -8,5 +8,5 @@ RSpec.describe Match, type: :model do
   it { should belong_to(:status) }
   # Validation tests
   # ensure columns are present before saving
-  it { should validate_presence_of(:number) }
+  it { should validate_presence_of(:week) }
 end

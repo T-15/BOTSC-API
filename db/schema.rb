@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20200502201938) do
     t.bigint "away_team_id"
     t.bigint "field_id"
     t.bigint "status_id"
-    t.integer "number", default: 0, null: false
+    t.integer "week", default: 0, null: false
     t.date "date"
     t.time "time"
     t.integer "home_score"

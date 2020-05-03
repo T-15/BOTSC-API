@@ -6,7 +6,7 @@ class Match < ApplicationRecord
   belongs_to :status
 
   # Validations
-  validates :number, presence: true
+  validates :week, presence: true
 
   # Scopes
   scope :for_team, ->(team_id) { where("home_team_id = ? OR away_team_id = ?", team_id, team_id) }
