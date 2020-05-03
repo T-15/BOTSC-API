@@ -52,6 +52,15 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :matches do
+        collection do
+          get 'for_team'
+        end
+        member do
+          get 'full'
+        end
+      end
+
       resources :members do
         collection do
           get 'active'

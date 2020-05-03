@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# Clear DB
+require 'database_cleaner'
+DatabaseCleaner.clean_with(:truncation)
+
 sponsors = Sponsor.create([{website_url: 'http://squirespublichouse.com/'}, {website_url: 'http://blackbull.ca/'}])
 
 referral_methods = ReferralMethod.create([{name: 'Website'}, {name: 'Facebook'}, {name: 'Club Member'}, {name: 'Other'}])
@@ -49,11 +53,43 @@ members = Member.create([
     }
 ])
 
-team = Team.create(
-    convenor_id: members.first.id,
-    division_id: divisions.first.id,
-    sponsor_id: sponsors.first.id,
-    name: 'Squires Rams'
-)
+teams = Team.create([
+    {
+        convenor_id: members.first.id,
+        division_id: divisions.first.id,
+        sponsor_id: sponsors.first.id,
+        name: 'Black Bull Imperials'
+    },
+    {
+        convenor_id: members.first.id,
+        division_id: divisions.first.id,
+        sponsor_id: sponsors.first.id,
+        name: 'Squires Rams'
+    },
+    {
+        convenor_id: members.first.id,
+        division_id: divisions.first.id,
+        sponsor_id: sponsors.first.id,
+        name: 'Piper Arms Gunners'
+    },
+    {
+        convenor_id: members.first.id,
+        division_id: divisions.first.id,
+        sponsor_id: sponsors.first.id,
+        name: 'Aches N Pains True Blues'
+    },
+    {
+        convenor_id: members.first.id,
+        division_id: divisions.first.id,
+        sponsor_id: sponsors.first.id,
+        name: 'Air Solutions'
+    },
+    {
+        convenor_id: members.first.id,
+        division_id: divisions.first.id,
+        sponsor_id: sponsors.first.id,
+        name: 'Black Bull Rangers'
+    }
+])
 
-team_members = TeamMember.create([{team_id: team.id, member_id: members.first.id}, {team_id: team.id, member_id: members.last.id}])
+team_members = TeamMember.create([{team_id: teams.first.id, member_id: members.first.id}, {team_id: teams.first.id, member_id: members.last.id}])
