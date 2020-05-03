@@ -77,6 +77,7 @@ Rails.application.routes.draw do
       # Utiliy Routes
       get '/utility/season_menu', to: 'utility#season_menu'
       post '/utility/application', to: 'utility#application'
+      post '/utility/schedule_generator', to: 'utility#schedule_generator'
       resources :team_members
       resources :referral_methods
       resources :waiting_lists
