@@ -2,85 +2,61 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
-      resources :sponsors do
-        get 'active', on: :collection
-      end
+      namespace :private do
 
-      resources :member_services do
-        get 'active', on: :collection
-      end
-
-      resources :fields do
-        get 'active', on: :collection
-      end
-
-      resources :constitution_articles do
-        get 'active', on: :collection
-      end
-
-      resources :constitution_by_laws do
-        get 'active', on: :collection
-      end
-
-      resources :seasons do
-        collection do
-          get 'active'
-          get 'active_with_divisions'
-          get 'active_with_divisions_teams'
+        resources :constitution_articles
+        resources :constitution_by_laws
+        resources :divisions do
+          collection do
+            post 'create_with_waiting_list'
+          end
         end
+        resources :fields
+        resources :matches
+        resources :members do
+          collection do
+            get 'active'
+          end
+        end
+        resources :member_services
+        resources :positions
+        resources :referral_methods
+        resources :sponsors
+        resources :seasons
+        resources :teams
+        resources :team_members
+        resources :waiting_lists
+        post '/utility/schedule_generator', to: 'utility#schedule_generator'
+        
       end
 
-      resources :divisions do
-        collection do
-          get 'active'
-          post 'create_with_waiting_list'
-        end
+      namespace :public do
 
-        member do
-          get 'with_teams'
-          get 'with_teams_full'
-        end
+        # Get Methods
+        get '/constitution_articles/active', to: 'constitution_articles#active'
+        get '/constitution_by_laws/active', to: 'constitution_by_laws#active'
+        get '/divisions/active', to: 'divisions#active'
+        get '/divisions/:id/with_teams', to: 'divisions#with_teams', as: 'division_with_teams'
+        get '/divisions/:id/with_teams_full', to: 'divisions#with_teams_full', as: 'division_with_teams_full'
+        get '/fields/active', to: 'fields#active'
+        get '/matches/for_team', to: 'matches#for_team'
+        get '/matches/:id/full', to: 'matches#full', as: 'matches_full'
+        get '/members/deceased', to: 'members#deceased'
+        get '/member_services/active', to: 'member_services#active'
+        get '/positions/active', to: 'positions#active'
+        get '/referral_methods', to: 'referral_methods#index'
+        get '/sponsors/active', to: 'sponsors#active'
+        get '/seasons/active', to: 'seasons#active'
+        get '/seasons/active_with_divisions', to: 'seasons#active_with_divisions'
+        get '/seasons/active_with_divisions_teams', to: 'seasons#active_with_divisions_teams'
+        get '/teams/active', to: 'teams#active'
+        get '/teams/:id/full', to: 'teams#full', as: 'teams_full'
+        get '/utility/season_menu', to: 'utility#season_menu'
+        
+        # Post methods
+        post '/utility/application', to: 'utility#application'
+
       end
-
-      resources :teams do
-        collection do
-          get 'active'
-        end
-
-        member do
-          get 'full'
-        end
-      end
-
-      resources :matches do
-        collection do
-          get 'for_team'
-        end
-        member do
-          get 'full'
-        end
-      end
-
-      resources :members do
-        collection do
-          get 'active'
-          get 'deceased'
-        end
-      end
-
-      resources :positions do
-        collection do
-          get 'active'
-        end
-      end
-
-      # Utiliy Routes
-      get '/utility/season_menu', to: 'utility#season_menu'
-      post '/utility/application', to: 'utility#application'
-      post '/utility/schedule_generator', to: 'utility#schedule_generator'
-      resources :team_members
-      resources :referral_methods
-      resources :waiting_lists
     end
   end
 end

@@ -1,42 +1,30 @@
-class Api::V1::TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :full, :update, :destroy]
+class Api::V1::Private::TeamsController < ApplicationController
+  before_action :set_team, only: [:show, :update, :destroy]
 
-  # GET api/v1/teams
+  # GET api/v1/private/teams
   def index
     @teams = Team.all
 
     render json: @teams, include: ['teams']
   end
 
-  # GET api/v1/teams/active
-  def active
-    @teams = Team.where(active: true)
-
-    render json: @teams, include: ['teams']
-  end
-
-  # GET api/v1/teams/1
+  # GET api/v1/private/teams/1
   def show
     render json: @team, include: ['team', 'convenor']
   end
 
-  # GET api/v1/teams/1/full
-  def full
-    render json: @team, include: ['team', 'convenor', 'members']
-  end
-
-  # POST api/v1/teams
+  # POST api/v1/private/teams
   def create
     @team = Team.new(team_params)
 
     if @team.save
-      render json: @team, status: :created, location: api_v1_team_path(@team), include: ['team']
+      render json: @team, status: :created, location: api_v1_private_team_path(@team), include: ['team']
     else
       render json: @team.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT api/v1/teams/1
+  # PATCH/PUT api/v1/private/teams/1
   def update
     if @team.update(team_params)
       render json: @team, include: ['team']
@@ -45,7 +33,7 @@ class Api::V1::TeamsController < ApplicationController
     end
   end
 
-  # DELETE api/v1/teams/1
+  # DELETE api/v1/private/teams/1
   def destroy
     @team.destroy
   end

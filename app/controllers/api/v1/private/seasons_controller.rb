@@ -1,51 +1,30 @@
-class Api::V1::SeasonsController < ApplicationController
+class Api::V1::Private::SeasonsController < ApplicationController
   before_action :set_season, only: [:show, :update, :destroy]
 
-  # GET api/v1/seasons
+  # GET api/v1/private/seasons
   def index
     @seasons = Season.all
 
     render json: @seasons, include: ['seasons']
   end
 
-  # GET api/v1/seasons/active
-  def active
-    @season = Season.find_by(active: true)
-
-    render json: @season, include: ['seasons']
-  end
-
-  # GET api/v1/seasons/active_with_divisions
-  def active_with_divisions
-    @season = Season.find_by(active: true)
-
-    render json: @season, include: ['seasons', 'divisions']
-  end
-
-  # GET api/v1/seasons/active_with_divisions_teams
-  def active_with_divisions_teams
-    @season = Season.find_by(active: true)
-
-    render json: @season, include: ['seasons', 'divisions', 'divisions.teams', 'divisions.teams.convenor']
-  end
-
-  # GET api/v1/seasons/1
+  # GET api/v1/private/seasons/1
   def show
     render json: @season, include: ['season']
   end
 
-  # POST api/v1/seasons
+  # POST api/v1/private/seasons
   def create
     @season = Season.new(season_params)
 
     if @season.save
-      render json: @season, status: :created, location: api_v1_season_path(@season), include: ['season']
+      render json: @season, status: :created, location: api_v1_private_season_path(@season), include: ['season']
     else
       render json: @season.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT api/v1/seasons/1
+  # PATCH/PUT api/v1/private/seasons/1
   def update
     if @season.update(season_params)
       render json: @season, include: ['season']
@@ -54,7 +33,7 @@ class Api::V1::SeasonsController < ApplicationController
     end
   end
 
-  # DELETE api/v1/seasons/1
+  # DELETE api/v1/private/seasons/1
   def destroy
     @season.destroy
   end

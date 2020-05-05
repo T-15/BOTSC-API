@@ -1,37 +1,30 @@
-class Api::V1::MemberServicesController < ApplicationController
+class Api::V1::Private::MemberServicesController < ApplicationController
   before_action :set_member_service, only: [:show, :update, :destroy]
 
-  # GET api/v1/member_services
+  # GET api/v1/private/member_services
   def index
     @member_services = MemberService.all
 
     render json: @member_services
   end
 
-  # GET api/v1/member_services/active
-  def active
-    @member_services = MemberService.where(active: true)
-
-    render json: @member_services
-  end
-
-  # GET api/v1/member_services/1
+  # GET api/v1/private/member_services/1
   def show
     render json: @member_service
   end
 
-  # POST api/v1/member_services
+  # POST api/v1/private/member_services
   def create
     @member_service = MemberService.new(member_service_params)
 
     if @member_service.save
-      render json: @member_service, status: :created, location: api_v1_member_service_path(@member_service)
+      render json: @member_service, status: :created, location: api_v1_private_member_service_path(@member_service)
     else
       render json: @member_service.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT api/v1/member_services/1
+  # PATCH/PUT api/v1/private/member_services/1
   def update
     if @member_service.update(member_service_params)
       p member_service_params
@@ -41,7 +34,7 @@ class Api::V1::MemberServicesController < ApplicationController
     end
   end
 
-  # DELETE api/v1/member_services/1
+  # DELETE api/v1/private/member_services/1
   def destroy
     @member_service.destroy
   end

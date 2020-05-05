@@ -1,37 +1,30 @@
-class Api::V1::PositionsController < ApplicationController
+class Api::V1::Private::PositionsController < ApplicationController
   before_action :set_position, only: [:show, :update, :destroy]
 
-  # GET api/v1/positions
+  # GET api/v1/private/positions
   def index
     @positions = Position.all
 
     render json: @positions
   end
 
-  # GET api/v1/positions/active
-  def active
-    @positions = Position.where(active: true)
-
-    render json: @positions
-  end
-
-  # GET api/v1/positions/1
+  # GET api/v1/private/positions/1
   def show
     render json: @position
   end
 
-  # POST api/v1/positions
+  # POST api/v1/private/positions
   def create
     @position = Position.new(position_params)
 
     if @position.save
-      render json: @position, status: :created, location: api_v1_positions_path(@position)
+      render json: @position, status: :created, location: api_v1_private_positions_path(@position)
     else
       render json: @position.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT api/v1/positions/1
+  # PATCH/PUT api/v1/private/positions/1
   def update
     if @position.update(position_params)
       render json: @position
@@ -40,7 +33,7 @@ class Api::V1::PositionsController < ApplicationController
     end
   end
 
-  # DELETE api/v1/positions/1
+  # DELETE api/v1/private/positions/1
   def destroy
     @position.destroy
   end

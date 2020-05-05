@@ -1,30 +1,30 @@
-class WaitingListMembersController < ApplicationController
+class Api::V1::Private::WaitingListMembersController < ApplicationController
   before_action :set_waiting_list_member, only: [:show, :update, :destroy]
 
-  # GET /waiting_list_members
+  # GET /api/v1/private/waiting_list_members
   def index
     @waiting_list_members = WaitingListMember.all
 
     render json: @waiting_list_members
   end
 
-  # GET /waiting_list_members/1
+  # GET /api/v1/private/waiting_list_members/1
   def show
     render json: @waiting_list_member
   end
 
-  # POST /waiting_list_members
+  # POST /api/v1/private/waiting_list_members
   def create
     @waiting_list_member = WaitingListMember.new(waiting_list_member_params)
 
     if @waiting_list_member.save
-      render json: @waiting_list_member, status: :created, location: @waiting_list_member
+      render json: @waiting_list_member, status: :created, location: api_vi_private_waiting_list_path(@waiting_list_member)
     else
       render json: @waiting_list_member.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /waiting_list_members/1
+  # PATCH/PUT /api/v1/private/waiting_list_members/1
   def update
     if @waiting_list_member.update(waiting_list_member_params)
       render json: @waiting_list_member
@@ -33,7 +33,7 @@ class WaitingListMembersController < ApplicationController
     end
   end
 
-  # DELETE /waiting_list_members/1
+  # DELETE /api/v1/private/waiting_list_members/1
   def destroy
     @waiting_list_member.destroy
   end

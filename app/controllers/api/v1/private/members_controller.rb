@@ -1,44 +1,37 @@
-class Api::V1::MembersController < ApplicationController
+class Api::V1::Private::MembersController < ApplicationController
   before_action :set_member, only: [:show, :update, :destroy]
 
-  # GET api/v1/members
+  # GET api/v1/private/members
   def index
     @members = Member.all
 
     render json: @members, include: ['members']
   end
 
-  # GET api/v1/members/active
+  # GET api/v1/private/members/active
   def active
     @members = Member.where(active: true)
 
     render json: @members, include: ['members']
   end
 
-  # GET api/v1/members/deceased
-  def deceased
-    @members = Member.where(deceased: true)
-
-    render json: @members, include: ['members']
-  end
-
-  # GET api/v1/members/1
+  # GET api/v1/private/members/1
   def show
     render json: @member, include: ['member']
   end
 
-  # POST api/v1/members
+  # POST api/v1/private/members
   def create
     @member = Member.new(member_params)
 
     if @member.save
-      render json: @member, status: :created, location: api_v1_member_path(@member), include: ['member']
+      render json: @member, status: :created, location: api_v1_private_member_path(@member), include: ['member']
     else
       render json: @member.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT api/v1/members/1
+  # PATCH/PUT api/v1/private/members/1
   def update
     if @member.update(member_params)
       render json: @member, include: ['member']
@@ -47,7 +40,7 @@ class Api::V1::MembersController < ApplicationController
     end
   end
 
-  # DELETE api/v1/members/1
+  # DELETE api/v1/private/members/1
   def destroy
     @member.destroy
   end

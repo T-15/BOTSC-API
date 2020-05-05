@@ -1,30 +1,30 @@
-class Api::V1::TeamMembersController < ApplicationController
+class Api::V1::Private::TeamMembersController < ApplicationController
   before_action :set_team_member, only: [:show, :update, :destroy]
 
-  # GET /team_members
+  # GET /api/v1/private/team_members
   def index
     @team_members = TeamMember.all
 
     render json: @team_members, include: ['team_members']
   end
 
-  # GET /team_members/1
+  # GET /api/v1/private/team_members/1
   def show
     render json: @team_member, include: ['team_member']
   end
 
-  # POST /team_members
+  # POST /api/v1/private/team_members
   def create
     @team_member = TeamMember.new(team_member_params)
 
     if @team_member.save
-      render json: @team_member, status: :created, location: api_v1_team_member_path(@team_member), include: ['team_member']
+      render json: @team_member, status: :created, location: api_v1_private_team_member_path(@team_member), include: ['team_member']
     else
       render json: @team_member.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /team_members/1
+  # PATCH/PUT /api/v1/private/team_members/1
   def update
     if @team_member.update(team_member_params)
       render json: @team_member, include: ['team_member']
@@ -33,7 +33,7 @@ class Api::V1::TeamMembersController < ApplicationController
     end
   end
 
-  # DELETE /team_members/1
+  # DELETE /api/v1/private/team_members/1
   def destroy
     @team_member.destroy
   end
