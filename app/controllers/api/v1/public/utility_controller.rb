@@ -1,4 +1,4 @@
-class Api::V1::UtilityController < ApplicationController
+class Api::V1::Public::UtilityController < ApplicationController
 
     # GET /api/v1/utility/season_menu
     def season_menu
