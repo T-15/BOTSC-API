@@ -6,5 +6,7 @@ RSpec.describe Season, type: :model do
   # Validation tests
   # ensure columns are present before saving
   it { should validate_presence_of(:year) }
+  it { should validate_uniqueness_of(:year) }
   it { should validate_presence_of(:name) }
+  it { should validate_uniqueness_of(:name) }
 end

@@ -3,8 +3,8 @@ class Season < ApplicationRecord
     has_many :divisions
 
     # Validations
-    validates :year, presence: true
-    validates :name, presence: true
+    validates :year, presence: true, uniqueness: true
+    validates :name, presence: true, uniqueness: true
     validate :only_one_active_season
 
     # Scopes

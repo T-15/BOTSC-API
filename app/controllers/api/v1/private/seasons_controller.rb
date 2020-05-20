@@ -1,4 +1,5 @@
 class Api::V1::Private::SeasonsController < ApplicationController
+  include Secured
   before_action :set_season, only: [:show, :update, :destroy]
 
   # GET api/v1/private/seasons

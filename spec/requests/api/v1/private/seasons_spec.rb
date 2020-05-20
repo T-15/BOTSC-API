@@ -34,7 +34,9 @@ RSpec.describe "/api/v1/private/seasons", type: :request do
   # SeasonsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
-    {}
+    {
+      "authorization": 'Bearer ' + get_token
+    }
   }
 
   describe "GET /index" do
@@ -48,7 +50,7 @@ RSpec.describe "/api/v1/private/seasons", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       season = Season.create! valid_attributes
-      get api_v1_private_season_url(season), as: :json
+      get api_v1_private_season_url(season), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
