@@ -34,8 +34,12 @@ RSpec.describe "/api/v1/private/seasons", type: :request do
   # SeasonsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
-    {}
+    {
+      "authorization": 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJpam5PR1hNTi1kNHhXN0VRU3dMciJ9.eyJpc3MiOiJodHRwczovL2JvdHNjLmF1dGgwLmNvbS8iLCJzdWIiOiJJaVZ6cnpsVHFCa1FzemZLaVpPUTRCazdhbU5IQkM3Z0BjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9hcGkuYm90c2MuY2EiLCJpYXQiOjE1ODk5MTU4ODYsImV4cCI6MTU5MDAwMjI4NiwiYXpwIjoiSWlWenJ6bFRxQmtRc3pmS2laT1E0Qms3YW1OSEJDN2ciLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.qOVbne139ymkmZPmnAMFrCZksTd8EqTC8LrFC1chRoGZ5ke-3eRYThNPlaGRTFtVh0rCLjl8BYC7zk6uCLl7vX6NBH2SkKpicdiOIZzQez_CCf4HXLHOqp13s-N0aCoA8ZTIYA8UgcG58oZEL0v0t4d8zUa31pjqAVs0DOU_BcWNcQeKMe_-u6a50qLNU7bD2-BR0ZvLvmCoAee0wJmZ0NSnDDfIEHClt48sEfoVoBj8XGkmzcOeXzNz9NrCFRPEJSeNIKnqQAg-dM1jRd5YkYGiCA8B9G7K1kZabvOidVQS8DWdIAFJ00cNYDIoKEkC3gQ171hmWqvjd1b47sRaQA'
+    }
   }
+
+  before {allow(controller).to receive(:authenticate_request!).and_return(true)}
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -48,7 +52,7 @@ RSpec.describe "/api/v1/private/seasons", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       season = Season.create! valid_attributes
-      get api_v1_private_season_url(season), as: :json
+      get api_v1_private_season_url(season), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
