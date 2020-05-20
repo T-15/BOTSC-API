@@ -41,6 +41,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.include RequestSpecHelper
+  config.include Auth0Helper
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
