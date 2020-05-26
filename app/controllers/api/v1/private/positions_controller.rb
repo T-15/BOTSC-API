@@ -1,11 +1,12 @@
 class Api::V1::Private::PositionsController < ApplicationController
+  include Secured
   before_action :set_position, only: [:show, :update, :destroy]
 
   # GET api/v1/private/positions
   def index
     @positions = Position.all
 
-    render json: @positions
+    render json: @positions, include: ['positions']
   end
 
   # GET api/v1/private/positions/1

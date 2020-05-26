@@ -33,7 +33,9 @@ RSpec.describe "/api/v1/private/positions", type: :request do
   # PositionsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
-    { }
+    {
+      "authorization": 'Bearer ' + get_token
+    }
   }
 
   describe "GET /index" do
@@ -47,7 +49,7 @@ RSpec.describe "/api/v1/private/positions", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       position = Position.create! valid_attributes
-      get api_v1_private_position_url(position), as: :json
+      get api_v1_private_position_url(position), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -73,7 +75,7 @@ RSpec.describe "/api/v1/private/positions", type: :request do
       it "does not create a new Position" do
         expect {
           post api_v1_private_positions_url,
-               params: { position: invalid_attributes }, as: :json
+               params: { position: invalid_attributes }, headers: valid_headers, as: :json
         }.to change(Position, :count).by(0)
       end
 

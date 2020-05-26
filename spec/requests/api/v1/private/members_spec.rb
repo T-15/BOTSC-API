@@ -41,7 +41,9 @@ RSpec.describe "/api/v1/private/members", type: :request do
   # MembersController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
-    {}
+    {
+      "authorization": 'Bearer ' + get_token
+    }
   }
 
   describe "GET /index" do
@@ -63,7 +65,7 @@ RSpec.describe "/api/v1/private/members", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       member = Member.create! valid_attributes
-      get api_v1_private_member_url(member), as: :json
+      get api_v1_private_member_url(member), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -89,7 +91,7 @@ RSpec.describe "/api/v1/private/members", type: :request do
       it "does not create a new Member" do
         expect {
           post api_v1_private_members_url,
-               params: { member: invalid_attributes }, as: :json
+               params: { member: invalid_attributes }, headers: valid_headers, as: :json
         }.to change(Member, :count).by(0)
       end
 

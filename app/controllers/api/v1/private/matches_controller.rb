@@ -1,4 +1,5 @@
 class Api::V1::Private::MatchesController < ApplicationController
+  include Secured
   before_action :set_match, only: [:show, :update, :destroy]
 
   # GET api/v1/private/matches

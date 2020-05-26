@@ -35,7 +35,9 @@ RSpec.describe "/api/v1/private/divisions", type: :request do
   # DivisionsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
-    {}
+    {
+      "authorization": 'Bearer ' + get_token
+    }
   }
 
   describe "GET /index" do
@@ -49,7 +51,7 @@ RSpec.describe "/api/v1/private/divisions", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       division = Division.create! valid_attributes
-      get api_v1_private_division_url(division), as: :json
+      get api_v1_private_division_url(division), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -75,7 +77,7 @@ RSpec.describe "/api/v1/private/divisions", type: :request do
       it "does not create a new Division" do
         expect {
           post api_v1_private_divisions_url,
-               params: { division: invalid_attributes }, as: :json
+               params: { division: invalid_attributes }, headers: valid_headers, as: :json
         }.to change(Division, :count).by(0)
       end
 

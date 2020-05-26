@@ -36,7 +36,9 @@ RSpec.describe "/api/v1/private/waiting_lists", type: :request do
   # WaitingListsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
-    {}
+    {
+      "authorization": 'Bearer ' + get_token
+    }
   }
 
   describe "GET /index" do
@@ -50,7 +52,7 @@ RSpec.describe "/api/v1/private/waiting_lists", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       waiting_list = WaitingList.create! valid_attributes
-      get api_v1_private_waiting_list_url(waiting_list), as: :json
+      get api_v1_private_waiting_list_url(waiting_list), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -76,7 +78,7 @@ RSpec.describe "/api/v1/private/waiting_lists", type: :request do
       it "does not create a new WaitingList" do
         expect {
           post api_v1_private_waiting_lists_url,
-               params: { waiting_list: invalid_attributes }, as: :json
+               params: { waiting_list: invalid_attributes }, headers: valid_headers, as: :json
         }.to change(WaitingList, :count).by(0)
       end
 

@@ -1,4 +1,5 @@
 class Api::V1::Private::WaitingListMembersController < ApplicationController
+  include Secured
   before_action :set_waiting_list_member, only: [:show, :update, :destroy]
 
   # GET /api/v1/private/waiting_list_members

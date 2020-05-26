@@ -1,4 +1,5 @@
 class Api::V1::Private::ConstitutionByLawsController < ApplicationController
+  include Secured
   before_action :set_constitution_by_law, only: [:show, :update, :destroy]
 
   # GET api/v1/private/constitution_by_laws
