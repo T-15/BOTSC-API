@@ -1,4 +1,5 @@
 class Api::V1::Private::ConstitutionArticlesController < ApplicationController
+  include Secured
   before_action :set_constitution_article, only: [:show, :update, :destroy]
 
   # GET api/v1/private/constitution_articles

@@ -1,4 +1,5 @@
 class Api::V1::Private::FieldsController < ApplicationController
+  include Secured
   before_action :set_field, only: [:show, :update, :destroy]
 
   # GET api/v1/private/fields

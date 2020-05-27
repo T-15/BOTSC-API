@@ -1,4 +1,5 @@
 class Api::V1::Private::UtilityController < ApplicationController
+    include Secured
 
     def schedule_generator
         # Invoke the Utility service

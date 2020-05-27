@@ -1,4 +1,5 @@
 class Api::V1::Private::TeamsController < ApplicationController
+  include Secured
   before_action :set_team, only: [:show, :update, :destroy]
 
   # GET api/v1/private/teams

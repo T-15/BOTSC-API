@@ -34,7 +34,9 @@ RSpec.describe "/api/v1/private/constitution_articles", type: :request do
   # ConstitutionArticlesController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
-    {}
+    {
+      "authorization": 'Bearer ' + get_token
+    }
   }
 
   describe "GET /index" do
@@ -48,7 +50,7 @@ RSpec.describe "/api/v1/private/constitution_articles", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       constitution_article = ConstitutionArticle.create! valid_attributes
-      get api_v1_private_constitution_article_url(constitution_article), as: :json
+      get api_v1_private_constitution_article_url(constitution_article), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -74,7 +76,7 @@ RSpec.describe "/api/v1/private/constitution_articles", type: :request do
       it "does not create a new ConstitutionArticle" do
         expect {
           post api_v1_private_constitution_articles_url,
-               params: { constitution_article: invalid_attributes }, as: :json
+               params: { constitution_article: invalid_attributes }, headers: valid_headers, as: :json
         }.to change(ConstitutionArticle, :count).by(0)
       end
 

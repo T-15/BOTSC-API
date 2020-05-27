@@ -1,4 +1,5 @@
 class Api::V1::Private::SponsorsController < ApplicationController
+  include Secured
   before_action :set_sponsor, only: [:show, :update, :destroy]
 
   # GET api/v1/private/sponsors

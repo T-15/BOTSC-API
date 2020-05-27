@@ -1,4 +1,5 @@
 class Api::V1::Private::DivisionsController < ApplicationController
+  include Secured
   before_action :set_division, only: [:show, :update, :destroy]
 
   # GET api/v1/private/divisions

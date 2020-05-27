@@ -1,4 +1,5 @@
 class Api::V1::Private::ReferralMethodsController < ApplicationController
+  include Secured
   before_action :set_referral_method, only: [:show, :update, :destroy]
 
   # GET /api/v1/private/referral_methods

@@ -30,7 +30,9 @@ RSpec.describe "/api_v1/private/fields", type: :request do
   # FieldsController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
-    {}
+    {
+      "authorization": 'Bearer ' + get_token
+    }
   }
 
   describe "GET /index" do
@@ -44,7 +46,7 @@ RSpec.describe "/api_v1/private/fields", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       field = Field.create! valid_attributes
-      get api_v1_private_field_url(field), as: :json
+      get api_v1_private_field_url(field), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -70,7 +72,7 @@ RSpec.describe "/api_v1/private/fields", type: :request do
       it "does not create a new Field" do
         expect {
           post api_v1_private_fields_url,
-               params: { field: invalid_attributes }, as: :json
+               params: { field: invalid_attributes }, headers: valid_headers, as: :json
         }.to change(Field, :count).by(0)
       end
 

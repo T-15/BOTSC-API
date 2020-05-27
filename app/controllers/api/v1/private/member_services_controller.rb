@@ -1,4 +1,5 @@
 class Api::V1::Private::MemberServicesController < ApplicationController
+  include Secured
   before_action :set_member_service, only: [:show, :update, :destroy]
 
   # GET api/v1/private/member_services
